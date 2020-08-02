@@ -1,0 +1,878 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 4.9.0.1
+- https://www.phpmyadmin.net
+-
+- Host: 127.0.0.1
+- Generation Time: Aug 02, 2020 at 01:03 PM
+- Server version: 10.4.6-MariaDB
+- PHP Version: 7.3.8
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="lms" collation="latin1_swedish_ci" charset="latin1">
+            <pma:table name="author">
+                CREATE TABLE `author` (
+                  `BookId` int(10) NOT NULL,
+                  `Author` varchar(50) NOT NULL,
+                  PRIMARY KEY (`BookId`,`Author`),
+                  CONSTRAINT `author_ibfk_1` FOREIGN KEY (`BookId`) REFERENCES `book` (`BookId`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="book">
+                CREATE TABLE `book` (
+                  `BookId` int(10) NOT NULL AUTO_INCREMENT,
+                  `Title` varchar(50) DEFAULT NULL,
+                  `Publisher` varchar(50) DEFAULT NULL,
+                  `Year` varchar(50) DEFAULT NULL,
+                  `Availability` int(5) DEFAULT NULL,
+                  PRIMARY KEY (`BookId`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="message">
+                CREATE TABLE `message` (
+                  `M_Id` int(10) NOT NULL AUTO_INCREMENT,
+                  `RollNo` varchar(50) DEFAULT NULL,
+                  `Msg` varchar(255) DEFAULT NULL,
+                  `Date` date DEFAULT NULL,
+                  `Time` time DEFAULT NULL,
+                  PRIMARY KEY (`M_Id`),
+                  KEY `RollNo` (`RollNo`),
+                  CONSTRAINT `message_ibfk_1` FOREIGN KEY (`RollNo`) REFERENCES `user` (`RollNo`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="recommendations">
+                CREATE TABLE `recommendations` (
+                  `R_ID` int(10) NOT NULL AUTO_INCREMENT,
+                  `Book_Name` varchar(50) DEFAULT NULL,
+                  `Description` varchar(255) DEFAULT NULL,
+                  `RollNo` varchar(50) DEFAULT NULL,
+                  PRIMARY KEY (`R_ID`),
+                  KEY `RollNo` (`RollNo`),
+                  CONSTRAINT `recommendations_ibfk_1` FOREIGN KEY (`RollNo`) REFERENCES `user` (`RollNo`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="record">
+                CREATE TABLE `record` (
+                  `RollNo` varchar(50) NOT NULL,
+                  `BookId` int(10) NOT NULL,
+                  `Date_of_Issue` date DEFAULT NULL,
+                  `Due_Date` date DEFAULT NULL,
+                  `Date_of_Return` date DEFAULT NULL,
+                  `Dues` int(10) DEFAULT NULL,
+                  `Renewals_left` int(10) DEFAULT NULL,
+                  `Time` time DEFAULT NULL,
+                  PRIMARY KEY (`RollNo`,`BookId`),
+                  KEY `BookId` (`BookId`),
+                  CONSTRAINT `record_ibfk_1` FOREIGN KEY (`RollNo`) REFERENCES `user` (`RollNo`),
+                  CONSTRAINT `record_ibfk_2` FOREIGN KEY (`BookId`) REFERENCES `book` (`BookId`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="renew">
+                CREATE TABLE `renew` (
+                  `RollNo` varchar(50) NOT NULL,
+                  `BookId` int(10) NOT NULL,
+                  PRIMARY KEY (`RollNo`,`BookId`),
+                  KEY `BookId` (`BookId`),
+                  CONSTRAINT `renew_ibfk_1` FOREIGN KEY (`RollNo`) REFERENCES `user` (`RollNo`),
+                  CONSTRAINT `renew_ibfk_2` FOREIGN KEY (`BookId`) REFERENCES `book` (`BookId`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="return">
+                CREATE TABLE `return` (
+                  `RollNo` varchar(50) NOT NULL,
+                  `BookId` int(10) NOT NULL,
+                  PRIMARY KEY (`RollNo`,`BookId`),
+                  KEY `BookId` (`BookId`),
+                  CONSTRAINT `return_ibfk_1` FOREIGN KEY (`RollNo`) REFERENCES `user` (`RollNo`),
+                  CONSTRAINT `return_ibfk_2` FOREIGN KEY (`BookId`) REFERENCES `book` (`BookId`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="user">
+                CREATE TABLE `user` (
+                  `RollNo` varchar(50) NOT NULL,
+                  `Name` varchar(50) DEFAULT NULL,
+                  `Type` varchar(50) DEFAULT NULL,
+                  `Category` varchar(50) DEFAULT NULL,
+                  `EmailId` varchar(50) DEFAULT NULL,
+                  `MobNo` bigint(11) DEFAULT NULL,
+                  `Password` varchar(50) DEFAULT NULL,
+                  PRIMARY KEY (`RollNo`),
+                  UNIQUE KEY `EmailId` (`EmailId`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Database: 'lms'
+    -->
+    <database name="lms">
+        <!-- Table author -->
+        <table name="author">
+            <column name="BookId">1</column>
+            <column name="Author">Stephen Brown</column>
+        </table>
+        <table name="author">
+            <column name="BookId">1</column>
+            <column name="Author">Zvonko Vranesic</column>
+        </table>
+        <table name="author">
+            <column name="BookId">2</column>
+            <column name="Author">R D Sudhaker Samuel</column>
+        </table>
+        <table name="author">
+            <column name="BookId">3</column>
+            <column name="Author">M Morris Mano</column>
+        </table>
+        <table name="author">
+            <column name="BookId">5</column>
+            <column name="Author">Reema Thareja</column>
+        </table>
+        <table name="author">
+            <column name="BookId">6</column>
+            <column name="Author">Jean-Paul Tremblay &amp; Paul G. Sorenson</column>
+        </table>
+        <table name="author">
+            <column name="BookId">6</column>
+            <column name="Author">Paul G. Sorenson</column>
+        </table>
+        <table name="author">
+            <column name="BookId">7</column>
+            <column name="Author">Carl Hamacher</column>
+        </table>
+        <table name="author">
+            <column name="BookId">7</column>
+            <column name="Author">Safwat Zaky</column>
+        </table>
+        <table name="author">
+            <column name="BookId">7</column>
+            <column name="Author">Zvonko Vranesic</column>
+        </table>
+        <table name="author">
+            <column name="BookId">8</column>
+            <column name="Author">William Stallings</column>
+        </table>
+        <table name="author">
+            <column name="BookId">10</column>
+            <column name="Author">Deiteil</column>
+        </table>
+        <table name="author">
+            <column name="BookId">11</column>
+            <column name="Author">Sharma</column>
+        </table>
+        <table name="author">
+            <column name="BookId">12</column>
+            <column name="Author">Barney Stinson</column>
+        </table>
+        <table name="author">
+            <column name="BookId">13</column>
+            <column name="Author">Puri</column>
+        </table>
+        <table name="author">
+            <column name="BookId">14</column>
+            <column name="Author">Manna</column>
+        </table>
+        <table name="author">
+            <column name="BookId">15</column>
+            <column name="Author">Jindal U.C</column>
+        </table>
+        <table name="author">
+            <column name="BookId">16</column>
+            <column name="Author">Prasad</column>
+        </table>
+        <table name="author">
+            <column name="BookId">17</column>
+            <column name="Author">Aravind Alex</column>
+        </table>
+        <table name="author">
+            <column name="BookId">17</column>
+            <column name="Author">Haldar Sibsankar</column>
+        </table>
+        <table name="author">
+            <column name="BookId">18</column>
+            <column name="Author">Sandhu</column>
+        </table>
+        <table name="author">
+            <column name="BookId">18</column>
+            <column name="Author">Singh</column>
+        </table>
+        <table name="author">
+            <column name="BookId">19</column>
+            <column name="Author">Randy Connolly</column>
+        </table>
+        <table name="author">
+            <column name="BookId">19</column>
+            <column name="Author">Ricardo Hoar</column>
+        </table>
+        <table name="author">
+            <column name="BookId">20</column>
+            <column name="Author">Robin Nixon</column>
+        </table>
+        <table name="author">
+            <column name="BookId">21</column>
+            <column name="Author">Nicholas C Zakas</column>
+        </table>
+        <table name="author">
+            <column name="BookId">22</column>
+            <column name="Author">Tom M. Mitchell</column>
+        </table>
+        <table name="author">
+            <column name="BookId">23</column>
+            <column name="Author">and Thamarai Selvi</column>
+        </table>
+        <table name="author">
+            <column name="BookId">23</column>
+            <column name="Author">Christian Vecchiola</column>
+        </table>
+        <table name="author">
+            <column name="BookId">23</column>
+            <column name="Author">Rajkumar Buyya</column>
+        </table>
+        <table name="author">
+            <column name="BookId">24</column>
+            <column name="Author">EMC Education Services</column>
+        </table>
+        <table name="author">
+            <column name="BookId">25</column>
+            <column name="Author">David Sawyer Mcfarland</column>
+        </table>
+        <table name="author">
+            <column name="BookId">26</column>
+            <column name="Author">Udit Agarwal</column>
+        </table>
+        <!-- Table book -->
+        <table name="book">
+            <column name="BookId">1</column>
+            <column name="Title">Fundamentals of Digital Logic Design with VHDL</column>
+            <column name="Publisher">McGraw Hill</column>
+            <column name="Year">2005</column>
+            <column name="Availability">0</column>
+        </table>
+        <table name="book">
+            <column name="BookId">2</column>
+            <column name="Title">Illustrative Approach to Logic Design</column>
+            <column name="Publisher">Sanguine-Pearson</column>
+            <column name="Year">2010</column>
+            <column name="Availability">0</column>
+        </table>
+        <table name="book">
+            <column name="BookId">3</column>
+            <column name="Title">Digital Logic and Computer Design</column>
+            <column name="Publisher">Pearson</column>
+            <column name="Year">2008</column>
+            <column name="Availability">4</column>
+        </table>
+        <table name="book">
+            <column name="BookId">4</column>
+            <column name="Title">Data Structures: A Pseudo-code approach with C Gi</column>
+            <column name="Publisher">Cengage Learning</column>
+            <column name="Year">2015</column>
+            <column name="Availability">4</column>
+        </table>
+        <table name="book">
+            <column name="BookId">5</column>
+            <column name="Title">Data Structures using C</column>
+            <column name="Publisher">Oxford press</column>
+            <column name="Year">2012</column>
+            <column name="Availability">0</column>
+        </table>
+        <table name="book">
+            <column name="BookId">6</column>
+            <column name="Title">An Introduction to Data Structures with Applicatio</column>
+            <column name="Publisher">McGraw Hill</column>
+            <column name="Year">2013</column>
+            <column name="Availability">9</column>
+        </table>
+        <table name="book">
+            <column name="BookId">7</column>
+            <column name="Title">Computer Organization</column>
+            <column name="Publisher">McGraw Hill</column>
+            <column name="Year">2002</column>
+            <column name="Availability">10</column>
+        </table>
+        <table name="book">
+            <column name="BookId">8</column>
+            <column name="Title">Computer Organization &amp; Architecture</column>
+            <column name="Publisher">Pearson</column>
+            <column name="Year">2015</column>
+            <column name="Availability">12</column>
+        </table>
+        <table name="book">
+            <column name="BookId">9</column>
+            <column name="Title">Computer System Architecture</column>
+            <column name="Publisher">Prentice Hall</column>
+            <column name="Year">2015</column>
+            <column name="Availability">4</column>
+        </table>
+        <table name="book">
+            <column name="BookId">10</column>
+            <column name="Title">C: How to program</column>
+            <column name="Publisher">Prentice Hall</column>
+            <column name="Year">2009</column>
+            <column name="Availability">2</column>
+        </table>
+        <table name="book">
+            <column name="BookId">11</column>
+            <column name="Title">Atomic and Nuclear Systems</column>
+            <column name="Publisher">Pearson India </column>
+            <column name="Year">2017</column>
+            <column name="Availability">11</column>
+        </table>
+        <table name="book">
+            <column name="BookId">12</column>
+            <column name="Title">The PlayBook</column>
+            <column name="Publisher">Stinson</column>
+            <column name="Year">2010</column>
+            <column name="Availability">12</column>
+        </table>
+        <table name="book">
+            <column name="BookId">13</column>
+            <column name="Title">General Theory of Relativity</column>
+            <column name="Publisher">Pearson India </column>
+            <column name="Year">2012</column>
+            <column name="Availability">4</column>
+        </table>
+        <table name="book">
+            <column name="BookId">14</column>
+            <column name="Title">Heat and Thermodynamics</column>
+            <column name="Publisher">Pearson</column>
+            <column name="Year">2013</column>
+            <column name="Availability">9</column>
+        </table>
+        <table name="book">
+            <column name="BookId">15</column>
+            <column name="Title">Machine Design</column>
+            <column name="Publisher">Pearson India </column>
+            <column name="Year">2012</column>
+            <column name="Availability">4</column>
+        </table>
+        <table name="book">
+            <column name="BookId">16</column>
+            <column name="Title">Nuclear Physics</column>
+            <column name="Publisher">Pearson India </column>
+            <column name="Year">1998</column>
+            <column name="Availability">7</column>
+        </table>
+        <table name="book">
+            <column name="BookId">17</column>
+            <column name="Title">Operating System</column>
+            <column name="Publisher">Pearson India </column>
+            <column name="Year">1990</column>
+            <column name="Availability">7</column>
+        </table>
+        <table name="book">
+            <column name="BookId">18</column>
+            <column name="Title">Theory of Machines</column>
+            <column name="Publisher">Pearson</column>
+            <column name="Year">1992</column>
+            <column name="Availability">12</column>
+        </table>
+        <table name="book">
+            <column name="BookId">19</column>
+            <column name="Title">Fundamentals of Web Development</column>
+            <column name="Publisher">Pearson</column>
+            <column name="Year">2015</column>
+            <column name="Availability">12</column>
+        </table>
+        <table name="book">
+            <column name="BookId">20</column>
+            <column name="Title">Learning PHP, MySQL &amp;JavaScript with jQuery, CSS a</column>
+            <column name="Publisher">O’Reilly</column>
+            <column name="Year">1992</column>
+            <column name="Availability">12</column>
+        </table>
+        <table name="book">
+            <column name="BookId">21</column>
+            <column name="Title">Professional JavaScript for Web Developers</column>
+            <column name="Publisher">Wiley</column>
+            <column name="Year">2012</column>
+            <column name="Availability">12</column>
+        </table>
+        <table name="book">
+            <column name="BookId">22</column>
+            <column name="Title">Machine Learning</column>
+            <column name="Publisher">McGraw Hill</column>
+            <column name="Year">2013</column>
+            <column name="Availability">12</column>
+        </table>
+        <table name="book">
+            <column name="BookId">23</column>
+            <column name="Title">Mastering Cloud. Computing</column>
+            <column name="Publisher">McGraw Hill</column>
+            <column name="Year">2015</column>
+            <column name="Availability">12</column>
+        </table>
+        <table name="book">
+            <column name="BookId">24</column>
+            <column name="Title">Information Storage and Management</column>
+            <column name="Publisher">Wiley</column>
+            <column name="Year">2015</column>
+            <column name="Availability">12</column>
+        </table>
+        <table name="book">
+            <column name="BookId">25</column>
+            <column name="Title">JavaScript &amp; jQuery: The Missing Manual</column>
+            <column name="Publisher">O’Reilly</column>
+            <column name="Year">2014</column>
+            <column name="Availability">12</column>
+        </table>
+        <table name="book">
+            <column name="BookId">26</column>
+            <column name="Title">Computer Graphics</column>
+            <column name="Publisher">Pearson</column>
+            <column name="Year">2015</column>
+            <column name="Availability">5</column>
+        </table>
+        <!-- Table message -->
+        <table name="message">
+            <column name="M_Id">34</column>
+            <column name="RollNo">1KG16ME005</column>
+            <column name="Msg">Your request for issue of BookId: 11 has been accepted</column>
+            <column name="Date">2019-12-03</column>
+            <column name="Time">11:31:30</column>
+        </table>
+        <table name="message">
+            <column name="M_Id">35</column>
+            <column name="RollNo">1KG16ME005</column>
+            <column name="Msg">Your request for issue of BookId: 18 has been accepted</column>
+            <column name="Date">2019-12-03</column>
+            <column name="Time">11:31:34</column>
+        </table>
+        <table name="message">
+            <column name="M_Id">36</column>
+            <column name="RollNo">1KG16CS040</column>
+            <column name="Msg">Your request for issue of BookId: 11 has been accepted</column>
+            <column name="Date">2019-12-03</column>
+            <column name="Time">11:34:56</column>
+        </table>
+        <table name="message">
+            <column name="M_Id">37</column>
+            <column name="RollNo">1KG16ME005</column>
+            <column name="Msg">Your request for renewal of BookId: 11 has been accepted</column>
+            <column name="Date">2019-12-03</column>
+            <column name="Time">11:35:43</column>
+        </table>
+        <table name="message">
+            <column name="M_Id">38</column>
+            <column name="RollNo">1KG16ME005</column>
+            <column name="Msg">Your request for return of BookId: 11  has been accepted</column>
+            <column name="Date">2019-12-03</column>
+            <column name="Time">11:36:38</column>
+        </table>
+        <table name="message">
+            <column name="M_Id">39</column>
+            <column name="RollNo">1KG16ME005</column>
+            <column name="Msg">Your request for return of BookId: 18  has been accepted</column>
+            <column name="Date">2019-12-03</column>
+            <column name="Time">11:41:11</column>
+        </table>
+        <table name="message">
+            <column name="M_Id">40</column>
+            <column name="RollNo">1KG16ME005</column>
+            <column name="Msg">Your request for issue of BookId: 10 has been accepted</column>
+            <column name="Date">2019-12-03</column>
+            <column name="Time">12:47:42</column>
+        </table>
+        <table name="message">
+            <column name="M_Id">41</column>
+            <column name="RollNo">1KG16ME005</column>
+            <column name="Msg">Your request for issue of BookId: 11 has been accepted</column>
+            <column name="Date">2019-12-03</column>
+            <column name="Time">12:47:46</column>
+        </table>
+        <table name="message">
+            <column name="M_Id">42</column>
+            <column name="RollNo">1KG16CS040</column>
+            <column name="Msg">Your request for issue of BookId: 13 has been accepted</column>
+            <column name="Date">2019-12-03</column>
+            <column name="Time">12:47:51</column>
+        </table>
+        <table name="message">
+            <column name="M_Id">43</column>
+            <column name="RollNo">1KG16ME005</column>
+            <column name="Msg">Your request for issue of BookId: 15 has been accepted</column>
+            <column name="Date">2019-12-03</column>
+            <column name="Time">12:48:11</column>
+        </table>
+        <table name="message">
+            <column name="M_Id">44</column>
+            <column name="RollNo">1KG16ME005</column>
+            <column name="Msg">Your request for issue of BookId: 6 has been accepted</column>
+            <column name="Date">2019-12-03</column>
+            <column name="Time">15:33:42</column>
+        </table>
+        <!-- Table recommendations -->
+        <!-- Table record -->
+        <table name="record">
+            <column name="RollNo">1KG16CS040</column>
+            <column name="BookId">11</column>
+            <column name="Date_of_Issue">2019-12-03</column>
+            <column name="Due_Date">2020-01-02</column>
+            <column name="Date_of_Return">NULL</column>
+            <column name="Dues">NULL</column>
+            <column name="Renewals_left">5</column>
+            <column name="Time">11:33:57</column>
+        </table>
+        <table name="record">
+            <column name="RollNo">1KG16CS040</column>
+            <column name="BookId">13</column>
+            <column name="Date_of_Issue">2019-12-03</column>
+            <column name="Due_Date">2020-01-02</column>
+            <column name="Date_of_Return">NULL</column>
+            <column name="Dues">NULL</column>
+            <column name="Renewals_left">5</column>
+            <column name="Time">11:34:00</column>
+        </table>
+        <table name="record">
+            <column name="RollNo">1KG16CS040</column>
+            <column name="BookId">14</column>
+            <column name="Date_of_Issue">NULL</column>
+            <column name="Due_Date">NULL</column>
+            <column name="Date_of_Return">NULL</column>
+            <column name="Dues">NULL</column>
+            <column name="Renewals_left">NULL</column>
+            <column name="Time">11:34:04</column>
+        </table>
+        <table name="record">
+            <column name="RollNo">1KG16CS040</column>
+            <column name="BookId">21</column>
+            <column name="Date_of_Issue">NULL</column>
+            <column name="Due_Date">NULL</column>
+            <column name="Date_of_Return">NULL</column>
+            <column name="Dues">NULL</column>
+            <column name="Renewals_left">NULL</column>
+            <column name="Time">11:33:54</column>
+        </table>
+        <table name="record">
+            <column name="RollNo">1KG16ME005</column>
+            <column name="BookId">6</column>
+            <column name="Date_of_Issue">2019-12-03</column>
+            <column name="Due_Date">2020-01-02</column>
+            <column name="Date_of_Return">NULL</column>
+            <column name="Dues">NULL</column>
+            <column name="Renewals_left">5</column>
+            <column name="Time">11:31:16</column>
+        </table>
+        <table name="record">
+            <column name="RollNo">1KG16ME005</column>
+            <column name="BookId">8</column>
+            <column name="Date_of_Issue">NULL</column>
+            <column name="Due_Date">NULL</column>
+            <column name="Date_of_Return">NULL</column>
+            <column name="Dues">NULL</column>
+            <column name="Renewals_left">NULL</column>
+            <column name="Time">12:47:17</column>
+        </table>
+        <table name="record">
+            <column name="RollNo">1KG16ME005</column>
+            <column name="BookId">10</column>
+            <column name="Date_of_Issue">2019-12-03</column>
+            <column name="Due_Date">2020-01-02</column>
+            <column name="Date_of_Return">NULL</column>
+            <column name="Dues">NULL</column>
+            <column name="Renewals_left">5</column>
+            <column name="Time">12:47:09</column>
+        </table>
+        <table name="record">
+            <column name="RollNo">1KG16ME005</column>
+            <column name="BookId">11</column>
+            <column name="Date_of_Issue">2019-12-03</column>
+            <column name="Due_Date">2020-01-02</column>
+            <column name="Date_of_Return">NULL</column>
+            <column name="Dues">NULL</column>
+            <column name="Renewals_left">5</column>
+            <column name="Time">12:47:14</column>
+        </table>
+        <table name="record">
+            <column name="RollNo">1KG16ME005</column>
+            <column name="BookId">15</column>
+            <column name="Date_of_Issue">2019-12-03</column>
+            <column name="Due_Date">2020-01-02</column>
+            <column name="Date_of_Return">NULL</column>
+            <column name="Dues">NULL</column>
+            <column name="Renewals_left">5</column>
+            <column name="Time">12:47:06</column>
+        </table>
+        <table name="record">
+            <column name="RollNo">1KG16ME005</column>
+            <column name="BookId">16</column>
+            <column name="Date_of_Issue">NULL</column>
+            <column name="Due_Date">NULL</column>
+            <column name="Date_of_Return">NULL</column>
+            <column name="Dues">NULL</column>
+            <column name="Renewals_left">NULL</column>
+            <column name="Time">12:47:02</column>
+        </table>
+        <table name="record">
+            <column name="RollNo">1KG16ME005</column>
+            <column name="BookId">18</column>
+            <column name="Date_of_Issue">2019-12-03</column>
+            <column name="Due_Date">2020-01-02</column>
+            <column name="Date_of_Return">2019-12-03</column>
+            <column name="Dues">0</column>
+            <column name="Renewals_left">5</column>
+            <column name="Time">11:31:12</column>
+        </table>
+        <table name="record">
+            <column name="RollNo">1KG16ME005</column>
+            <column name="BookId">21</column>
+            <column name="Date_of_Issue">NULL</column>
+            <column name="Due_Date">NULL</column>
+            <column name="Date_of_Return">NULL</column>
+            <column name="Dues">NULL</column>
+            <column name="Renewals_left">NULL</column>
+            <column name="Time">12:47:12</column>
+        </table>
+        <!-- Table renew -->
+        <table name="renew">
+            <column name="RollNo">1KG16ME005</column>
+            <column name="BookId">15</column>
+        </table>
+        <!-- Table return -->
+        <table name="return">
+            <column name="RollNo">1KG16ME005</column>
+            <column name="BookId">10</column>
+        </table>
+        <!-- Table user -->
+        <table name="user">
+            <column name="RollNo">1KG16CS040</column>
+            <column name="Name">Jeevottam</column>
+            <column name="Type">Member</column>
+            <column name="Category">Stu</column>
+            <column name="EmailId">jeevottam@gmail.com</column>
+            <column name="MobNo">9876543210</column>
+            <column name="Password">1KG16CS040</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KG16CS041</column>
+            <column name="Name">Jyotheesh</column>
+            <column name="Type">Member</column>
+            <column name="Category">Stu</column>
+            <column name="EmailId">jyotheesh@yahoo.com</column>
+            <column name="MobNo">7845965212</column>
+            <column name="Password">1KG16CS041</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KG16CS042</column>
+            <column name="Name">Dhanush</column>
+            <column name="Type">Member</column>
+            <column name="Category">Stu</column>
+            <column name="EmailId">dhanush@hotmail.com</column>
+            <column name="MobNo">4512451245</column>
+            <column name="Password">1KG16CS042</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KG16CS043</column>
+            <column name="Name">Arun</column>
+            <column name="Type">Member</column>
+            <column name="Category">Stu</column>
+            <column name="EmailId">arun@gmail.com</column>
+            <column name="MobNo">6352416352</column>
+            <column name="Password">1KG16CS043</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KG16CS044</column>
+            <column name="Name">Chandu</column>
+            <column name="Type">Member</column>
+            <column name="Category">Stu</column>
+            <column name="EmailId">chandu@gmail.com</column>
+            <column name="MobNo">96685747485</column>
+            <column name="Password">1KG16CS044</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KG16EC030</column>
+            <column name="Name">Harry</column>
+            <column name="Type">Member</column>
+            <column name="Category">Stu</column>
+            <column name="EmailId">harry@hotmail.com</column>
+            <column name="MobNo">4578457845</column>
+            <column name="Password">1KG16EC030</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KG16EC031</column>
+            <column name="Name">Alex</column>
+            <column name="Type">Member</column>
+            <column name="Category">Stu</column>
+            <column name="EmailId">alex@yahoo.com</column>
+            <column name="MobNo">9685747474</column>
+            <column name="Password">1KG16EC031</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KG16EC032</column>
+            <column name="Name">Kevin</column>
+            <column name="Type">Member</column>
+            <column name="Category">Stu</column>
+            <column name="EmailId">kevin11@hotmail.com</column>
+            <column name="MobNo">1242425163</column>
+            <column name="Password">1KG16EC032</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KG16EC033</column>
+            <column name="Name">Max</column>
+            <column name="Type">Member</column>
+            <column name="Category">Stu</column>
+            <column name="EmailId">max@gmail.com</column>
+            <column name="MobNo">9685748574</column>
+            <column name="Password">1KG16EC033</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KG16EC034</column>
+            <column name="Name">Bharat</column>
+            <column name="Type">Member</column>
+            <column name="Category">Stu</column>
+            <column name="EmailId">bharat@gmail.com</column>
+            <column name="MobNo">987123456</column>
+            <column name="Password">1KG16EC034</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KG16ME001</column>
+            <column name="Name">Barney</column>
+            <column name="Type">Member</column>
+            <column name="Category">Stu</column>
+            <column name="EmailId">legendary@gmail.com</column>
+            <column name="MobNo">9695989192</column>
+            <column name="Password">1KG16ME001</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KG16ME002</column>
+            <column name="Name">Rachel</column>
+            <column name="Type">Member</column>
+            <column name="Category">Stu</column>
+            <column name="EmailId">rachel@gmail.com</column>
+            <column name="MobNo">7475787671</column>
+            <column name="Password">1KG16ME002</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KG16ME003</column>
+            <column name="Name">MALHAR</column>
+            <column name="Type">Member</column>
+            <column name="Category">Stu</column>
+            <column name="EmailId">malhar@gmail.com</column>
+            <column name="MobNo">9756153859</column>
+            <column name="Password">1KG16ME003</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KG16ME004</column>
+            <column name="Name">KENIL</column>
+            <column name="Type">Member</column>
+            <column name="Category">Stu</column>
+            <column name="EmailId">kenilshah081198@gmail.com</column>
+            <column name="MobNo">9892506094</column>
+            <column name="Password">1KG16ME004</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KG16ME005</column>
+            <column name="Name">Sheldon</column>
+            <column name="Type">Member</column>
+            <column name="Category">Stu</column>
+            <column name="EmailId">smartestpersoninroom@gmail.com</column>
+            <column name="MobNo">9696969696</column>
+            <column name="Password">1KG16ME005</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KGCS041</column>
+            <column name="Name">Madhu</column>
+            <column name="Type">Member</column>
+            <column name="Category">Pro</column>
+            <column name="EmailId">madhu@gmail.com</column>
+            <column name="MobNo">4141415263</column>
+            <column name="Password">1KGCS041</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KGCS042</column>
+            <column name="Name">Santosh</column>
+            <column name="Type">Member</column>
+            <column name="Category">Pro</column>
+            <column name="EmailId">santosh@yahoo.com</column>
+            <column name="MobNo">4545451212</column>
+            <column name="Password">1KGCS042</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KGCS043</column>
+            <column name="Name">Ashok</column>
+            <column name="Type">Member</column>
+            <column name="Category">Pro</column>
+            <column name="EmailId">ashok@hotmail.com</column>
+            <column name="MobNo">6352416345</column>
+            <column name="Password">1KGCS043</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KGCS044</column>
+            <column name="Name">Kusuma</column>
+            <column name="Type">Member</column>
+            <column name="Category">Pro</column>
+            <column name="EmailId">kusuma@yahoo.com</column>
+            <column name="MobNo">7845124578</column>
+            <column name="Password">1KGCS044</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KGEC035</column>
+            <column name="Name">Manu</column>
+            <column name="Type">Member</column>
+            <column name="Category">Pro</column>
+            <column name="EmailId">manu@gmail.com</column>
+            <column name="MobNo">8365917597</column>
+            <column name="Password">1KGEC035</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KGEC036</column>
+            <column name="Name">Harika</column>
+            <column name="Type">Member</column>
+            <column name="Category">Pro</column>
+            <column name="EmailId">harika@gmail.com</column>
+            <column name="MobNo">5451525356</column>
+            <column name="Password">1KGEC036</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KGEC037</column>
+            <column name="Name">Joey</column>
+            <column name="Type">Member</column>
+            <column name="Category">Pro</column>
+            <column name="EmailId">joey@yahoo.com</column>
+            <column name="MobNo">9898982020</column>
+            <column name="Password">1KGEC037</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KGME010</column>
+            <column name="Name">Ram Prabhu</column>
+            <column name="Type">Member</column>
+            <column name="Category">Pro</column>
+            <column name="EmailId">ram@nitc.ac.in</column>
+            <column name="MobNo">968599456</column>
+            <column name="Password">1KGME010</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KGME011</column>
+            <column name="Name">Misty</column>
+            <column name="Type">Member</column>
+            <column name="Category">Pro</column>
+            <column name="EmailId">watermaster@hotmail.com</column>
+            <column name="MobNo">4145424847</column>
+            <column name="Password">1KGME011</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">1KGME012</column>
+            <column name="Name">Chandler</column>
+            <column name="Type">Member</column>
+            <column name="Category">Pro</column>
+            <column name="EmailId">sarcasticlord@hotmail.com</column>
+            <column name="MobNo">9494959694</column>
+            <column name="Password">1KGME012</column>
+        </table>
+        <table name="user">
+            <column name="RollNo">ADMIN</column>
+            <column name="Name">admin</column>
+            <column name="Type">Admin</column>
+            <column name="Category">NULL</column>
+            <column name="EmailId">admin@nitc.ac.in</column>
+            <column name="MobNo">123456789</column>
+            <column name="Password">admin</column>
+        </table>
+    </database>
+</pma_xml_export>
